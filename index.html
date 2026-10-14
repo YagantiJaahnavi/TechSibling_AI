@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechSibling AI - B.Tech Campus to Corporate Roadmap</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col font-sans">
+
+  <!-- Top Navigation Header -->
+  <header class="border-b border-slate-800 bg-slate-950 px-6 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+      <div class="bg-indigo-600 text-white font-black px-3 py-1.5 rounded-lg text-lg">TS</div>
+      <div>
+        <h1 class="text-lg font-bold text-white tracking-wide">TechSibling AI</h1>
+        <p class="text-xs text-indigo-400">B.Tech 4-Year Career & Syllabus Navigator</p>
+      </div>
+    </div>
+
+    <!-- Student Profile Badge (Visible after login) -->
+    <div id="profileBadge" class="hidden flex items-center gap-2 bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-xl text-xs">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span id="badgeName" class="font-bold text-white">Student</span>
+      <span class="text-slate-400">|</span>
+      <span id="badgeBranch" class="text-indigo-300">CSE</span>
+      <button onclick="resetProfile()" class="ml-2 text-slate-400 hover:text-red-400" title="Log Out / Reset">
+        <i data-lucide="log-out" class="w-3.5 h-3.5 inline"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-5xl w-full mx-auto p-4 md:p-6 space-y-6">
+
+    <!-- Global API Key Banner -->
+    <div class="bg-indigo-950/40 border border-indigo-700/40 rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+      <div class="text-indigo-200">
+        🔑 <strong>Gemini API Key:</strong> Get your free key from <a href="https://aistudio.google.com/" target="_blank" class="underline text-indigo-400 font-bold hover:text-indigo-300">Google AI Studio</a>.
+      </div>
+      <input 
+        id="apiKeyInput" 
+        type="password" 
+        placeholder="Paste your Gemini API key" 
+        class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1 text-white w-full sm:w-72 focus:outline-none focus:border-indigo-500"
+        onchange="localStorage.setItem('gemini_api_key', this.value)"
+      />
+    </div>
+
+    <!-- ================= SCREEN 1: ONBOARDING / LOGIN ================= -->
+    <section id="screenOnboarding" class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6 md:p-8 max-w-xl mx-auto shadow-2xl">
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 bg-indigo-600/20 text-indigo-400 rounded-2xl flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        </div>
+        <h2 class="text-xl font-bold text-white">Welcome to TechSibling AI</h2>
+        <p class="text-xs text-slate-400 mt-1">Select your branch & semester to unlock your personalized career roadmap.</p>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-300 uppercase tracking-wider mb-1.5">Your Name</label>
+          <input id="inputName" type="text" placeholder="e.g. Rahul Sharma" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-indigo-500" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-slate-300 uppercase tracking-wider mb-1.5">Engineering Branch</label>
+            <select id="inputBranch" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-indigo-500">
+              <option value="Computer Science (CSE)">Computer Science (CSE)</option>
+              <option value="Electronics & Communication (ECE)">Electronics & Comm (ECE)</option>
+              <option value="Electrical & Electronics (EEE)">Electrical & Electronics (EEE)</option>
+              <option value="Mechanical Engineering">Mechanical Engineering</option>
+              <option value="Civil Engineering">Civil Engineering</option>
+              <option value="AI & Data Science (AI/DS)">AI & Data Science (AI/DS)</option>
+              <option value="Information Technology (IT)">Information Technology (IT)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-300 uppercase tracking-wider mb-1.5">Current Semester</label>
+            <select id="inputSem" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-indigo-500">
+              <option value="1st Semester (Year 1)">1st Semester (Year 1)</option>
+              <option value="2nd Semester (Year 1)">2nd Semester (Year 1)</option>
+              <option value="3rd Semester (Year 2)">3rd Semester (Year 2)</option>
+              <option value="4th Semester (Year 2)">4th Semester (Year 2)</option>
+              <option value="5th Semester (Year 3)">5th Semester (Year 3)</option>
+              <option value="6th Semester (Year 3)">6th Semester (Year 3)</option>
+              <option value="7th Semester (Year 4)">7th Semester (Year 4)</option>
+              <option value="8th Semester (Year 4)">8th Semester (Year 4)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-300 uppercase tracking-wider mb-1.5">Career Goal / Interest</label>
+          <select id="inputGoal" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <option value="High-Paying Software / IT Product Jobs">High-Paying Software / IT Product Jobs</option>
+            <option value="Core Engineering + Tech Hybrid Roles">Core Engineering + Tech Hybrid Roles</option>
+            <option value="Cloud, DevOps & Cybersecurity">Cloud, DevOps & Cybersecurity</option>
+            <option value="Data Science & Artificial Intelligence">Data Science & Artificial Intelligence</option>
+            <option value="I don't know yet, guide me!">I don't know yet, guide me!</option>
+          </select>
+        </div>
+
+        <button onclick="handleLogin()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl transition mt-4 flex items-center justify-center gap-2 text-sm shadow-lg shadow-indigo-600/30">
+          <span>Enter Dashboard & Roadmap</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 2: MAIN DASHBOARD ================= -->
+    <div id="screenDashboard" class="hidden space-y-6">
+
+      <!-- Navigation Tabs -->
+      <div class="flex flex-wrap gap-2 border-b border-slate-800 pb-3">
+        <button id="tabRoles" onclick="switchDashboardTab('roles')" class="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white transition flex items-center gap-2">
+          <i data-lucide="briefcase" class="w-4 h-4"></i>
+          Branch Job Roles & Skills
+        </button>
+        <button id="tabRoadmap" onclick="switchDashboardTab('roadmap')" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white bg-slate-800 transition flex items-center gap-2">
+          <i data-lucide="calendar" class="w-4 h-4"></i>
+          8-Semester Target Roadmap
+        </button>
+        <button id="tabSyllabus" onclick="switchDashboardTab('syllabus')" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white bg-slate-800 transition flex items-center gap-2">
+          <i data-lucide="book-open" class="w-4 h-4"></i>
+          Syllabus-to-Software Reality
+        </button>
+      </div>
+
+      <!-- TAB 1: BRANCH JOB ROLES & REQUIRED SKILLS -->
+      <section id="viewRoles" class="space-y-4">
+        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="compass" class="w-5 h-5 text-indigo-400"></i>
+              Available Job Roles for <span id="labelRolesBranch" class="text-indigo-400">CSE</span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Explore high-paying roles open to your branch and the exact technical skills required.</p>
+          </div>
+          <button onclick="fetchBranchRoles()" id="btnFetchRoles" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+            Refresh Roles
+          </button>
+        </div>
+        <div id="rolesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      </section>
+
+      <!-- TAB 2: 4-YEAR / 8-SEMESTER ROADMAP -->
+      <section id="viewRoadmap" class="hidden space-y-4">
+        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i data-lucide="milestone" class="w-5 h-5 text-emerald-400"></i>
+              Your 4-Year (8-Semester) Target Roadmap
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Semester-by-semester targets so you graduate ready for placements.</p>
+          </div>
+          <button onclick="fetchSemesterRoadmap()" id="btnFetchRoadmap" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            Generate Roadmap
+          </button>
+        </div>
+        <div id="roadmapContainer" class="space-y-4"></div>
+      </section>
+
+      <!-- TAB 3: SYLLABUS TO SOFTWARE REALITY BRIDGE -->
+      <section id="viewSyllabus" class="hidden space-y-4">
+        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-5">
+          <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2">
+            <i data-lucide="cpu" class="w-5 h-5 text-indigo-400"></i>
+            How Does Your College Subject Connect to Real Software?
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">Enter any college subject or syllabus topic to see where real tech companies use it.</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Subject Name</label>
+              <input id="inputSubject" type="text" placeholder="e.g. Operating Systems, Microprocessors, DBMS" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Specific Chapter or Topic</label>
+              <input id="inputChapter" type="text" placeholder="e.g. Deadlocks, 8085 Assembly, SQL Triggers" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500" />
+            </div>
+          </div>
+
+          <button onclick="analyzeSyllabus()" id="btnAnalyzeSyllabus" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition text-xs flex items-center justify-center gap-2">
+            <span>Analyze Corporate Application</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <div id="syllabusResultContainer" class="hidden space-y-4"></div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- External Script -->
+  <script src="script.js"></script>
+</body>
+</html>
